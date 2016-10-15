@@ -35,10 +35,10 @@ P(\,S\mid \bm{W}=\bm{x}\,) &= \frac
 	{P(\,\bm{W}=\bm{x}\,)} \\
 	&= \frac
 	{P(\,\bm{W}=\bm{x} \mid S\,)P(\,S\,)} 
-	{P(\,\bm{W}=\bm{x} \mid S\,)P(\,S\,) + P(\,\bm{W}=\bm{x} \mid \neg S\,)P(\,S\,)}  \\
+	{P(\,\bm{W}=\bm{x} \mid S\,)P(\,S\,) + P(\,\bm{W}=\bm{x} \mid \neg S\,)P(\,\neg S\,)}  \\
 	&= \frac
 	{P(\,\bm{W}=\bm{x} \mid S\,)} 
-	{P(\,\bm{W}=\bm{x} \mid S\,) + P(\,\bm{W}=\bm{x} \mid \neg S\,)}
+	{P(\,\bm{W}=\bm{x} \mid S\,) + P(\,\bm{W}=\bm{x} \mid \neg S\,)} & \text{I assume } P(\,\neg S\,) = P(\,S\,)
 \end{align*}
 Where $\bm{x}$ is just a vector where every value is $1$ and $\bm{W}$ is a vector of random variables $W_i$ such that
 \[
@@ -47,7 +47,12 @@ W_i= \begin{cases}
 0,  & \text{otherwise} \\
 \end{cases}
 \]
-From this we can see that the probability that a message is spam given the presence of a vector of words $\bm{w}$ is a function of two easier probabilities; the probability that the message contains the words $\bm{w}$ given that the message is spam, and the probability that the message contains the words $\bm{w}$ given that the message is not spam. The probability that a message would contain this set of words given that the message is spam (and similarly for a message that is not spam) is \[P(\,\bm{W}=\bm{x} \mid S \,) = P(\,W_1 = x_1,\, \ldots \,, W_n = x_n \mid S \,) = \prod_{w_i \in \mathcal{W}}P(\,W_i=x_i\mid S\,)\] assuming that each of the \(W_i\)'s are independent \footnote{The assumption of independence of the \(W_i \)s is a simplifying one, but perhaps not a realistic one. I suppose I could try to cluster words into 'phrases' and then treat each phrase as an event. I would be able to apply this model and would address the concern that my independence assumption is invalid. Let's first get this to work for single words, and then move on from there.}. So we can re-write the probability that a given message composed of words $w \in \mathcal{W}$ is spam as:
+From this we can see that the probability that a message is spam given the presence of a vector of words $\bm{w}$ is a function of two easier probabilities; the probability that the message contains the words $\bm{w}$ given that the message is spam, and the probability that the message contains the words $\bm{w}$ given that the message is not spam. The probability that a message would contain this set of words given that the message is spam (and similarly for a message that is not spam) is 
+\begin{align*}
+P(\,\bm{W}=\bm{x} \mid S \,) &= P(\,W_1 = x_1,\, \ldots \,, W_n = x_n \mid S \,) \\
+&= \prod_{w_i \in \mathcal{W}}P(\,W_i=x_i\mid S\,)
+\end{align*}
+ assuming that each of the \(W_i\)'s are independent \footnote{The assumption of independence of the \(W_i \)s is a simplifying one, but perhaps not a realistic one. I suppose I could try to cluster words into 'phrases' and then treat each phrase as an event. I would be able to apply this model and would address the concern that my independence assumption is invalid. Let's first get this to work for single words, and then move on from there.}. So we can re-write the probability that a given message composed of words $w \in \mathcal{W}$ is spam as:
 \begin{equation}
 P(\,S\mid \bm{W}=\bm{x}\,) = \ffrac
 	{ \prod_{w_i \in \mathcal{W}} P(\,W_i=x_i \mid S\,)}
